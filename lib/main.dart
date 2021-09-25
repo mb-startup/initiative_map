@@ -53,6 +53,19 @@ final Map<int, Color> secondaryMap = {
   900: Color(0xE67889EA),
 };
 
+final Map<int, Color> secondaryDarkMap = {
+  50: Color(0xD4c5aac),
+  100: Color(0x1A4c5aac),
+  200: Color(0x334c5aac),
+  300: Color(0x4D4c5aac),
+  400: Color(0x664c5aac),
+  500: Color(0x804c5aac),
+  600: Color(0x994c5aac),
+  700: Color(0xB34c5aac),
+  800: Color(0xCC4c5aac),
+  900: Color(0xE64c5aac),
+};
+
 final Map<int, Color> accentMap = {
   50: Color(0xDFF5A5A),
   100: Color(0x1AFF5A5A),
@@ -70,6 +83,7 @@ final Map<int, Color> accentMap = {
 class ProjectColors {
   MaterialColor primary = MaterialColor(0xFF0275D8, primaryMap);
   MaterialColor secondary = MaterialColor(0xFF7889EA, secondaryMap);
+  MaterialColor secondaryDark = MaterialColor(0xFF4c5aac, secondaryDarkMap);
   MaterialColor accent = MaterialColor(0xFFFF5A5A, accentMap);
 }
 
@@ -122,14 +136,15 @@ class _MainPageState extends State<MainPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(titlePage, style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600),),
+        title: Text(titlePage, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),),
         centerTitle: true,
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [ProjectColors().primary, ProjectColors().secondary],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [ProjectColors().secondary, ProjectColors().primary],
+                stops: [0.45, 1]
             ),
           ),
         ),

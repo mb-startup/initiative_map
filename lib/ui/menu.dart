@@ -38,12 +38,14 @@ class _MenuState extends State<Menu> {
 
   Widget _header() {
     return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [ProjectColors().primary.shade900, ProjectColors().secondary.shade900])
-      ),
+      color: ProjectColors().primary,
+      // decoration: BoxDecoration(
+      //     gradient: LinearGradient(
+      //         begin: Alignment.topLeft,
+      //         end: Alignment.bottomRight,
+      //         colors: [ProjectColors().primary, ProjectColors().primary.shade800],
+      //     )
+      // ),
       padding: EdgeInsets.all(16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -51,28 +53,6 @@ class _MenuState extends State<Menu> {
         children: <Widget>[
           Container(
             height: 32,
-          ),
-          Row(
-            children: <Widget>[
-              CircleAvatar(
-                radius: 30,
-                backgroundColor: Colors.green,
-              ),
-              Container(width: 16,),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Text>[
-                    Text("Осин", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-                    Text("Владислав", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600)),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Container(
-            height: 8,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -85,9 +65,9 @@ class _MenuState extends State<Menu> {
                   },
                   label: Text('ЯРОСЛАВЛЬ', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),),
                   style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all(Colors.white),
-                      overlayColor: MaterialStateProperty.all(Colors.white24),
-                      minimumSize: MaterialStateProperty.all(Size(0, 30)),
+                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                    overlayColor: MaterialStateProperty.all(Colors.white24),
+                    minimumSize: MaterialStateProperty.all(Size(0, 30)),
                   )
               ),
               Expanded(
@@ -139,9 +119,37 @@ class _MenuState extends State<Menu> {
               ),
             ],
           ),
-
           Container(
-            height: 8,
+            height: 4,
+          ),
+          Container(
+            padding: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: ProjectColors().secondaryDark,
+              borderRadius: BorderRadius.circular(15.0)
+              ),
+            child: Row(
+              children: <Widget>[
+                CircleAvatar(
+                  radius: 25,
+                  backgroundColor: ProjectColors().accent,
+                ),
+                Container(width: 16,),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Text>[
+                      Text("Осин", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white)),
+                      Text("Владислав", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: Colors.white)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            height: 14,
           ),
 
           // Container(
@@ -197,9 +205,9 @@ class _MenuState extends State<Menu> {
         ),
         child: ListTile(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
+            borderRadius: BorderRadius.circular(10.0),
           ),
-          leading: Icon(icon,),
+          leading: Icon(icon, size: 30,),
           title: Text(title, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
           selectedTileColor: ProjectColors().secondary.shade200,
           selected: widget.activePage == page,
@@ -217,7 +225,7 @@ class _MenuState extends State<Menu> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("beta v0.1", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),),
+          Text("beta v0.1.1", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),),
           Container(
             height: 4,
           ),
