@@ -1,113 +1,150 @@
 import 'package:flutter/material.dart';
+import 'package:initiative_map/ui/menu.dart';
+
+import 'menu/about.dart';
+import 'menu/feed.dart';
+import 'menu/home.dart';
+import 'menu/map.dart';
+import 'menu/settings.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(InitiativeMapApp());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+enum Pages {
+  home,
+  feed,
+  map,
+  about,
+  settings
+}
+
+Map<Pages, String> pageTitles = {
+  Pages.home: "Главная",
+  Pages.feed: "Лента",
+  Pages.map: "Карта",
+  Pages.about: "О проекте",
+  Pages.settings: "Настройки",
+};
+
+final Map<int, Color> primaryMap = {
+  50: Color(0xD0275D8),
+  100: Color(0x1A0275D8),
+  200: Color(0x330275D8),
+  300: Color(0x4D0275D8),
+  400: Color(0x660275D8),
+  500: Color(0x800275D8),
+  600: Color(0x990275D8),
+  700: Color(0xB30275D8),
+  800: Color(0xCC0275D8),
+  900: Color(0xE60275D8),
+};
+
+final Map<int, Color> secondaryMap = {
+  50: Color(0xD7889EA),
+  100: Color(0x1A7889EA),
+  200: Color(0x337889EA),
+  300: Color(0x4D7889EA),
+  400: Color(0x667889EA),
+  500: Color(0x807889EA),
+  600: Color(0x997889EA),
+  700: Color(0xB37889EA),
+  800: Color(0xCC7889EA),
+  900: Color(0xE67889EA),
+};
+
+final Map<int, Color> accentMap = {
+  50: Color(0xDFF5A5A),
+  100: Color(0x1AFF5A5A),
+  200: Color(0x33FF5A5A),
+  300: Color(0x4DFF5A5A),
+  400: Color(0x66FF5A5A),
+  500: Color(0x80FF5A5A),
+  600: Color(0x99FF5A5A),
+  700: Color(0xB3FF5A5A),
+  800: Color(0xCCFF5A5A),
+  900: Color(0xE6FF5A5A),
+};
+
+
+class ProjectColors {
+  MaterialColor primary = MaterialColor(0xFF0275D8, primaryMap);
+  MaterialColor secondary = MaterialColor(0xFF7889EA, secondaryMap);
+  MaterialColor accent = MaterialColor(0xFFFF5A5A, accentMap);
+}
+
+
+class InitiativeMapApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Карта инициатив',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: ProjectColors().primary,
+        primaryColor: ProjectColors().primary,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MainPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
+class MainPage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+class _MainPageState extends State<MainPage> {
+  Pages activePage = Pages.home;
+  String titlePage = pageTitles[Pages.home]!;
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    Widget body = HomePage();
+
+    switch (activePage) {
+      case Pages.feed:
+        body = FeedPage();
+        break;
+      case Pages.map:
+        body = MapPage();
+        break;
+      case Pages.about:
+        body = AboutPage();
+        break;
+      case Pages.settings:
+        body = SettingsPage();
+        break;
+      default:
+        body = HomePage();
+        break;
+    }
+
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+        title: Text(titlePage, style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600),),
+        centerTitle: true,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [ProjectColors().primary, ProjectColors().secondary],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      drawer: Menu(activePage: activePage, changePage: changePage,),
+      body: body,
     );
   }
+
+  changePage(Pages page, String title) {
+    setState(() => {
+      activePage = page,
+      titlePage = title,
+      Navigator.pop(context)
+    });
+  }
 }
+
