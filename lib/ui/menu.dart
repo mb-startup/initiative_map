@@ -52,7 +52,7 @@ class _MenuState extends State<Menu> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            height: 32,
+            height: 20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -225,7 +225,7 @@ class _MenuState extends State<Menu> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("beta v0.1.1", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),),
+          Text("beta v0.1.2", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),),
           Container(
             height: 4,
           ),

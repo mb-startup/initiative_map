@@ -79,12 +79,26 @@ final Map<int, Color> accentMap = {
   900: Color(0xE6FF5A5A),
 };
 
+final Map<int, Color> redMap = {
+  50: Color(0xDFFC1D1D),
+  100: Color(0x1AFC1D1D),
+  200: Color(0x33FC1D1D),
+  300: Color(0x4DFC1D1D),
+  400: Color(0x66FC1D1D),
+  500: Color(0x80FC1D1D),
+  600: Color(0x99FC1D1D),
+  700: Color(0xB3FC1D1D),
+  800: Color(0xCCFC1D1D),
+  900: Color(0xE6FC1D1D),
+};
+
 
 class ProjectColors {
   MaterialColor primary = MaterialColor(0xFF0275D8, primaryMap);
   MaterialColor secondary = MaterialColor(0xFF7889EA, secondaryMap);
   MaterialColor secondaryDark = MaterialColor(0xFF4c5aac, secondaryDarkMap);
   MaterialColor accent = MaterialColor(0xFFFF5A5A, accentMap);
+  MaterialColor red = MaterialColor(0xFFFC1D1D, redMap);
 }
 
 
@@ -115,10 +129,34 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     Widget body = HomePage();
+    List<Widget> actions = [];
 
     switch (activePage) {
       case Pages.feed:
         body = FeedPage();
+        actions = [
+          PopupMenuButton(
+            icon: Icon(Icons.sort),
+            itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+              const PopupMenuItem(
+                enabled: false,
+                child: Text("Сортировать по:")
+              ),
+              const PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(Icons.local_fire_department),
+                  title: Text('Популярности'),
+                ),
+              ),
+              const PopupMenuItem(
+                child: ListTile(
+                  leading: Icon(Icons.calendar_today),
+                  title: Text('Дате добавления'),
+                ),
+              ),
+            ],
+          ),
+        ];
         break;
       case Pages.map:
         body = MapPage();
@@ -148,6 +186,7 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
         ),
+        actions: actions,
       ),
       drawer: Menu(activePage: activePage, changePage: changePage,),
       body: body,
