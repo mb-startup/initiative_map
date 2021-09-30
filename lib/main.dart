@@ -135,27 +135,7 @@ class _MainPageState extends State<MainPage> {
       case Pages.feed:
         body = FeedPage();
         actions = [
-          PopupMenuButton(
-            icon: Icon(Icons.sort),
-            itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-              const PopupMenuItem(
-                enabled: false,
-                child: Text("Сортировать по:")
-              ),
-              const PopupMenuItem(
-                child: ListTile(
-                  leading: Icon(Icons.local_fire_department),
-                  title: Text('Популярности'),
-                ),
-              ),
-              const PopupMenuItem(
-                child: ListTile(
-                  leading: Icon(Icons.calendar_today),
-                  title: Text('Дате добавления'),
-                ),
-              ),
-            ],
-          ),
+          PopupMenu()
         ];
         break;
       case Pages.map:

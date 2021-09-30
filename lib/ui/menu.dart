@@ -235,3 +235,60 @@ class _MenuState extends State<Menu> {
     );
   }
 }
+
+class PopupMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        icon: Icon(Icons.sort),
+        onPressed: () {
+          showCupertinoModalPopup<void>(
+            context: context,
+            builder: (BuildContext context) => CupertinoActionSheet(
+              title: Text('Сортировать по', style: TextStyle(fontSize: 18),),
+              actions: <CupertinoActionSheetAction>[
+                _item(Icons.local_fire_department, Colors.deepOrangeAccent , "Популярности", context),
+                _item(Icons.calendar_today, Colors.blue, "Дата добавления", context),
+              ],
+            ),
+          );
+        },
+    );
+    // return PopupMenuButton(
+    //   padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 2.0, bottom: 2.0),
+    //   shape: RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.circular(10.0),
+    //   ),
+    //   icon: Icon(Icons.sort),
+    //   itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+    //     PopupMenuItem(
+    //         enabled: false,
+    //         child: Text("Сортировать по:", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),)
+    //     ),
+    //     PopupMenuItem(
+    //       child: _items(Icons.local_fire_department, "Популярности")
+    //     ),
+    //     PopupMenuItem(
+    //       child: _items(Icons.calendar_today, "Дате добавления")
+    //     ),
+    //   ],
+    // );
+  }
+
+  CupertinoActionSheetAction _item(IconData icon, Color color, String title, BuildContext context) {
+    return CupertinoActionSheetAction(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(icon, color: color),
+          Text("  " + title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black.withOpacity(0.8))),
+        ],
+      ),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+  }
+
+}
