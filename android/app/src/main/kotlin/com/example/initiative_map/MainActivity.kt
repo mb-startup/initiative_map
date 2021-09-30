@@ -1,4 +1,4 @@
-package com.example.initiative_map
+package mb.startup.initiative_map
 
 import androidx.annotation.NonNull
 import io.flutter.embedding.android.FlutterActivity
