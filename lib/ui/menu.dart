@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import '../main.dart';
 
 class Menu extends StatefulWidget {
-  Menu({Key? key, required this.activePage, required this.changePage}) : super(key: key);
+  Menu({Key? key, required this.activePage, required this.changePage, required this.funcForUpdateUI}) : super(key: key);
 
   final Pages activePage;
   final Function changePage;
+  final Function funcForUpdateUI;
 
   @override
   _MenuState createState() => _MenuState();
@@ -105,7 +106,10 @@ class _MenuState extends State<Menu> {
                     child: InkWell(
                       //This keeps the splash effect within the circle
                       borderRadius: BorderRadius.circular(1000.0),
-                      onTap: () {},
+                      onTap: () {
+                        LocalData().saveBool("auth", false);
+                        widget.funcForUpdateUI();
+                      },
                       child: Padding(
                         padding:EdgeInsets.all(5.0),
                         child: Icon(
@@ -225,7 +229,7 @@ class _MenuState extends State<Menu> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("beta v0.1.2", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),),
+          Text("beta v0.1.3", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),),
           Container(
             height: 4,
           ),

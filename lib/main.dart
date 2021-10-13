@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:initiative_map/ui/menu.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'detail/login.dart';
 import 'menu/about.dart';
 import 'menu/feed.dart';
 import 'menu/home.dart';
@@ -12,6 +14,7 @@ void main() {
 }
 
 enum Pages {
+  login,
   home,
   feed,
   map,
@@ -99,7 +102,61 @@ class ProjectColors {
   MaterialColor secondaryDark = MaterialColor(0xFF4c5aac, secondaryDarkMap);
   MaterialColor accent = MaterialColor(0xFFFF5A5A, accentMap);
   MaterialColor red = MaterialColor(0xFFFC1D1D, redMap);
+  Color vk = Color(0xff4C75A3);
 }
+
+class LocalData {
+  saveString(String key, String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(key, value);
+  }
+
+  saveInt(String key, int value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(key, value);
+  }
+
+  saveDouble(String key, double value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setDouble(key, value);
+  }
+
+  saveBool(String key, bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(key, value);
+  }
+
+  Future<String?> getString(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? stringValue = prefs.getString(key);
+    return stringValue;
+  }
+
+  Future<int?> getInt(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? intValue = prefs.getInt(key);
+    return intValue;
+  }
+
+  Future<double?> getDouble(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    double? doubleValue = prefs.getDouble(key);
+    return doubleValue;
+  }
+
+  Future<bool?> getBool(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? boolValue = prefs.getBool(key);
+    return boolValue;
+  }
+
+  Future<bool> isExist (String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.containsKey(key);
+  }
+
+}
+
 
 
 class InitiativeMapApp extends StatelessWidget {
@@ -123,13 +180,21 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  String auth = "null";
   Pages activePage = Pages.home;
   String titlePage = pageTitles[Pages.home]!;
+
+  @override
+  void initState() {
+    super.initState();
+    checkAuth();
+  }
 
   @override
   Widget build(BuildContext context) {
     Widget body = HomePage();
     List<Widget> actions = [];
+    Widget? drawer = Menu(activePage: activePage, changePage: changePage, funcForUpdateUI: checkAuth,);
 
     switch (activePage) {
       case Pages.feed:
@@ -152,23 +217,37 @@ class _MainPageState extends State<MainPage> {
         break;
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(titlePage, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),),
-        centerTitle: true,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [ProjectColors().secondary, ProjectColors().primary],
-                stops: [0.45, 1]
-            ),
+    AppBar? appBar = AppBar(
+      title: Text(titlePage, style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),),
+      centerTitle: true,
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [ProjectColors().secondary, ProjectColors().primary],
+              stops: [0.45, 1]
           ),
         ),
-        actions: actions,
       ),
-      drawer: Menu(activePage: activePage, changePage: changePage,),
+      actions: actions,
+    );
+
+    if (auth == "false") {
+      activePage = Pages.login;
+      body = LoginPage(funcForUpdateUI: checkAuth,);
+      drawer = null;
+      appBar = null;
+    } else if (auth == "null") {
+      body = Container();
+      drawer = null;
+      appBar = null;
+    }
+
+
+    return Scaffold(
+      appBar: appBar,
+      drawer: drawer,
       body: body,
     );
   }
@@ -178,6 +257,16 @@ class _MainPageState extends State<MainPage> {
       activePage = page,
       titlePage = title,
       Navigator.pop(context)
+    });
+  }
+
+  checkAuth() async {
+    var isAuth = await LocalData().isExist("auth");
+    if (isAuth) {
+      isAuth = (await LocalData().getBool("auth"))!;
+    }
+    setState(() {
+      auth = isAuth.toString();
     });
   }
 }

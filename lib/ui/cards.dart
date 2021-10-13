@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:initiative_map/detail/initiative.dart';
+import 'package:initiative_map/detail/news.dart';
 
 import '../main.dart';
 
@@ -39,7 +40,7 @@ class InitiativeCard extends StatelessWidget {
                 children: <Widget>[
                   if (isHot) Icon(Icons.local_fire_department, color: Colors.deepOrangeAccent,),
                   if (isHot) Container(
-                    width: 2,
+                    width: 4,
                   ),
                   Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                 ],
@@ -47,11 +48,14 @@ class InitiativeCard extends StatelessWidget {
               subtitle: Column(
                 children: <Widget>[
                   Container(
-                    height: 2,
+                    height: 4,
                   ),
                   Row(
                     children: <Widget>[
                       Icon(Icons.location_on_outlined, size: 18, color: Theme.of(context).hintColor,),
+                      Container(
+                        width: 2,
+                      ),
                       Expanded(
                         child: Text(
                           address,
@@ -76,7 +80,7 @@ class InitiativeCard extends StatelessWidget {
                       onPressed: () {},
                       style: ButtonStyle(
                           foregroundColor: MaterialStateProperty.all(Colors.green),
-                          overlayColor: MaterialStateProperty.all(Colors.green.shade200)
+                          overlayColor: MaterialStateProperty.all(Colors.green.shade100)
                       ),
                       icon: Icon(Icons.question_answer_outlined),
                       label: Text(comments, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600))
@@ -113,7 +117,14 @@ class NewsCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>
+                  NewsDetail()
+              ),
+            );
+          },
           child: Container(
             padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0, bottom: 4.0, ),
             child: Column(
@@ -131,7 +142,7 @@ class NewsCard extends StatelessWidget {
                         onPressed: () {},
                         style: ButtonStyle(
                             foregroundColor: MaterialStateProperty.all(Colors.green),
-                            overlayColor: MaterialStateProperty.all(Colors.green.shade200)
+                            overlayColor: MaterialStateProperty.all(Colors.green.shade100)
                         ),
                         icon: Icon(Icons.question_answer_outlined),
                         label: Text(comments, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600))
@@ -141,7 +152,7 @@ class NewsCard extends StatelessWidget {
                     ),
                     Row(
                       children: <Widget>[
-                        Icon(Icons.remove_red_eye, color: Colors.black.withOpacity(0.6), size: 18,),
+                        Icon(Icons.remove_red_eye, color: Colors.black.withOpacity(0.5), size: 18,),
                         Text(" " + views, style: TextStyle(color: Colors.black.withOpacity(0.5)),),
                       ],
                     )
@@ -153,5 +164,50 @@ class NewsCard extends StatelessWidget {
       ),
     );
   }
-
 }
+
+// class CommentWidget extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.all(16.0),
+//       child: Row(
+//         children: <Widget>[
+//           CircleAvatar(
+//             radius: 25,
+//             backgroundColor: ProjectColors().accent,
+//           ),
+//           Container(
+//             width: 16,
+//           ),
+//           Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: <Widget>[
+//               Text("Владислав Осин", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),),
+//               Container(
+//                 height: 2,
+//               ),
+//               Text("Привет всем", style: TextStyle(fontSize: 16, color: Colors.black.withOpacity(0.8)),),
+//               Row(
+//                 crossAxisAlignment: CrossAxisAlignment.end,
+//                   children: <Widget>[
+//                     Expanded(child: Container()),
+//                     TextButton.icon(
+//                         onPressed: () {},
+//                         style: ButtonStyle(
+//                             foregroundColor: MaterialStateProperty.all(ProjectColors().red),
+//                             overlayColor: MaterialStateProperty.all(ProjectColors().red.shade200)
+//                         ),
+//                         icon: Icon(Icons.favorite_border, size: 20,),
+//                         label: Text("30", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600))
+//                     )
+//                   ]
+//               ),
+//             ],
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
