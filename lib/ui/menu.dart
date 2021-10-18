@@ -108,7 +108,7 @@ class _MenuState extends State<Menu> {
                       borderRadius: BorderRadius.circular(1000.0),
                       onTap: () {
                         LocalData().saveBool("auth", false);
-                        widget.funcForUpdateUI();
+                        widget.funcForUpdateUI(true);
                       },
                       child: Padding(
                         padding:EdgeInsets.all(5.0),
@@ -199,6 +199,7 @@ class _MenuState extends State<Menu> {
   }
 
   Widget _item({required IconData icon, required String title, required Pages page}) {
+    print(widget.activePage);
     return Container(
       padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 2.0, bottom: 2.0),
       child: Theme(
@@ -229,7 +230,7 @@ class _MenuState extends State<Menu> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("beta v0.1.3", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),),
+          Text("beta v0.1.4", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),),
           Container(
             height: 4,
           ),

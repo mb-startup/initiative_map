@@ -187,7 +187,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    checkAuth();
+    checkAuth(false);
   }
 
   @override
@@ -260,13 +260,15 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
-  checkAuth() async {
+  checkAuth(bool isPop) async {
     var isAuth = await LocalData().isExist("auth");
     if (isAuth) {
       isAuth = (await LocalData().getBool("auth"))!;
     }
     setState(() {
       auth = isAuth.toString();
+      activePage = Pages.home;
+      if(isPop) Navigator.pop(context);
     });
   }
 }

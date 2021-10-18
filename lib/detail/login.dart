@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 onPressed: () async {
                   LocalData().saveBool("auth", true);
-                  widget.funcForUpdateUI();
+                  widget.funcForUpdateUI(false);
                 },
                 label: Text(" Авторизация через ВК", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
                 icon: Icon(NewIcons.vk),
