@@ -15,6 +15,8 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  String city = "ЯРОСЛАВЛЬ";
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -61,10 +63,8 @@ class _MenuState extends State<Menu> {
             children: [
               TextButton.icon(
                   icon: Icon(Icons.location_on, size: 25,),
-                  onPressed: () {
-
-                  },
-                  label: Text('ЯРОСЛАВЛЬ', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),),
+                  onPressed: _selectCity,
+                  label: Text(city, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),),
                   style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all(Colors.white),
                     overlayColor: MaterialStateProperty.all(Colors.white24),
@@ -199,7 +199,6 @@ class _MenuState extends State<Menu> {
   }
 
   Widget _item({required IconData icon, required String title, required Pages page}) {
-    print(widget.activePage);
     return Container(
       padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 2.0, bottom: 2.0),
       child: Theme(
@@ -230,13 +229,63 @@ class _MenuState extends State<Menu> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("beta v0.1.4", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),),
+          Text("beta v0.1.5", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),),
           Container(
             height: 4,
           ),
           Text("Команда «мб стартап?», Ярославль 2021", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.grey),),
         ],
       ),
+    );
+  }
+
+  Future _selectCity() async {
+    return await showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: Text('Выберите город', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+            children: [
+              SimpleDialogOption(
+                onPressed: () {
+                  setState(() {
+                    city = "ЯРОСЛАВЛЬ";
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text('Ярославль', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  setState(() {
+                    city = "КОСТРОМА";
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text('Кострома', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  setState(() {
+                    city = "ИВАНОВО";
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text('Иваново', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  setState(() {
+                    city = "РЫБИНСК";
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text('Рыбинск', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+              ),
+            ],
+          );
+        }
     );
   }
 }

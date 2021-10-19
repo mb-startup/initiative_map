@@ -66,6 +66,9 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ],
         ),
+        Container(
+          height: 2,
+        ),
         Row(
           children: <Widget>[
             Text("Новые инициативы", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
@@ -76,6 +79,9 @@ class _SettingsPageState extends State<SettingsPage> {
               onChanged: (bool value) { setState(() { isSwitched = value; }); },
             ),
           ],
+        ),
+        Container(
+          height: 2,
         ),
         Row(
           children: <Widget>[
