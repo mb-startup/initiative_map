@@ -229,7 +229,7 @@ class _MenuState extends State<Menu> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("beta v0.1.5", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),),
+          Text("beta v0.1.6", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),),
           Container(
             height: 4,
           ),

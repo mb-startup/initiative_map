@@ -13,6 +13,7 @@ class InitiativeDetail extends StatefulWidget {
 }
 
 class _InitiativeDetailState extends State<InitiativeDetail> {
+  late YandexMapController controller;
   bool isMap = false;
 
   @override
@@ -52,7 +53,23 @@ class _InitiativeDetailState extends State<InitiativeDetail> {
             children: <Widget>[
               if (isMap) Container(
                 height: 200,
-                child: YandexMap(),
+                child: YandexMap(
+                  onMapCreated: (YandexMapController yandexMapController) {
+                    controller = yandexMapController;
+                  },
+                  onMapRendered: () async {
+                    controller.addPlacemark(Placemark(
+                      point: Point(latitude: 57.624899, longitude: 39.894847),
+                      style: PlacemarkStyle(
+                        opacity: 0.8,
+                        iconName: 'assets/place.png',
+                      ),
+                    ));
+                    await controller.move(
+                      point: Point(latitude: 57.624899, longitude: 39.894847),
+                    );
+                  },
+                ),
               ) else CarouselSlider(
                 options: CarouselOptions(
                     autoPlay: true,

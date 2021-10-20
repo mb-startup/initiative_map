@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:initiative_map/ui/menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'detail/login.dart';
+import 'fullscreen/login.dart';
 import 'menu/about.dart';
 import 'menu/feed.dart';
 import 'menu/home.dart';
