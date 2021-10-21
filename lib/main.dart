@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'fullscreen/login.dart';
 import 'menu/about.dart';
+import 'menu/cabinet.dart';
 import 'menu/feed.dart';
 import 'menu/home.dart';
 import 'menu/map.dart';
@@ -15,6 +16,7 @@ void main() {
 
 enum Pages {
   login,
+  cabinet,
   home,
   feed,
   map,
@@ -183,6 +185,7 @@ class _MainPageState extends State<MainPage> {
   String auth = "null";
   Pages activePage = Pages.home;
   String titlePage = pageTitles[Pages.home]!;
+  GlobalKey<ScaffoldState> key = GlobalKey();
 
   @override
   void initState() {
@@ -197,6 +200,9 @@ class _MainPageState extends State<MainPage> {
     Widget? drawer = Menu(activePage: activePage, changePage: changePage, funcForUpdateUI: checkAuth,);
 
     switch (activePage) {
+      case Pages.cabinet:
+        body = CabinetPage();
+        break;
       case Pages.feed:
         body = FeedPage();
         actions = [
@@ -204,7 +210,7 @@ class _MainPageState extends State<MainPage> {
         ];
         break;
       case Pages.map:
-        body = MapPage();
+        body = MapPage(scaffoldKey: key,);
         break;
       case Pages.about:
         body = AboutPage();
@@ -246,6 +252,7 @@ class _MainPageState extends State<MainPage> {
 
 
     return Scaffold(
+      key: key,
       appBar: appBar,
       drawer: drawer,
       body: body,

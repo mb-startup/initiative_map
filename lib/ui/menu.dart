@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:initiative_map/menu/cabinet.dart';
 
 import '../main.dart';
 
@@ -82,9 +83,10 @@ class _MenuState extends State<Menu> {
                       shape: BoxShape.circle,
                     ),
                     child: InkWell(
-                      //This keeps the splash effect within the circle
                       borderRadius: BorderRadius.circular(1000.0),
-                      onTap: () {},
+                      onTap: () {
+                        widget.changePage(Pages.cabinet, "Осин Владислав");
+                      },
                       child: Padding(
                         padding:EdgeInsets.all(5.0),
                         child: Icon(
@@ -104,7 +106,6 @@ class _MenuState extends State<Menu> {
                       shape: BoxShape.circle,
                     ),
                     child: InkWell(
-                      //This keeps the splash effect within the circle
                       borderRadius: BorderRadius.circular(1000.0),
                       onTap: () {
                         LocalData().saveBool("auth", false);
@@ -229,7 +230,7 @@ class _MenuState extends State<Menu> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("beta v0.1.6", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),),
+          Text("beta v0.1.7", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),),
           Container(
             height: 4,
           ),
