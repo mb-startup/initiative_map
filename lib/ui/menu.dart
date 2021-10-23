@@ -181,7 +181,7 @@ class _MenuState extends State<Menu> {
           ElevatedButton.icon(
               icon: Icon(Icons.add),
               onPressed: () {
-
+                widget.changePage(Pages.add, "Добавить инициативу");
               },
               label: Text('Выдвинуть инициативу', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),),
               style: ButtonStyle(
@@ -230,7 +230,7 @@ class _MenuState extends State<Menu> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("beta v0.1.7", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),),
+          Text("beta v0.1.8", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.grey),),
           Container(
             height: 4,
           ),

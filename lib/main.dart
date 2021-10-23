@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'fullscreen/login.dart';
 import 'menu/about.dart';
+import 'menu/add.dart';
 import 'menu/cabinet.dart';
 import 'menu/feed.dart';
 import 'menu/home.dart';
@@ -17,6 +18,7 @@ void main() {
 enum Pages {
   login,
   cabinet,
+  add,
   home,
   feed,
   map,
@@ -202,6 +204,9 @@ class _MainPageState extends State<MainPage> {
     switch (activePage) {
       case Pages.cabinet:
         body = CabinetPage();
+        break;
+      case Pages.add:
+        body = AddPage();
         break;
       case Pages.feed:
         body = FeedPage();
